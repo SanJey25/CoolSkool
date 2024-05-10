@@ -3,22 +3,133 @@
 <head>
     <title>CoolSkool</title>
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url("https://wallpapercave.com/wp/wp4286385.png");
+
+        }
+        #editor{
+            height: 200px;
+            border-radius: 20px;
+            border-width: 1px;
+            background-image: url(https://images.designtrends.com/wp-content/uploads/2015/12/22100209/Green-Chalkboard-Texture.jpg);
+            /* Optionally, you can set other background properties */
+            background-size: cover; /* Adjusts the size of the background image to cover the entire element */
+            background-position: center; /* Centers the background image within the element */
+            background-repeat: no-repeat;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.572);
+            gap: 30px;
+            color: aliceblue;
+            
+            
+        }
+        #select {
+            margin: 20px 0; /* Adds 20px gap from top and bottom */
+            border: solid;
+            border-radius: 8px;
+            height: 30px;
+            font-family: sans-serif;
+            font-weight: 900;
+            color: rgb(0, 0, 0);
+            background-color: rgb(255, 175, 166);
+            border-color: hsl(6, 100%, 75%);
+            border-width: 2px;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.572);
+        }
+        #select:hover{
+            background-color: hsl(6, 100%, 90%); 
+        }
+        
+        #save_button {
+            margin: 20px 0; /* Adds 20px gap from top and bottom */
+            height: 30px;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.572);
+            border-radius: 8px;
+            background-color: rgb(255, 175, 166);
+            color: rgb(0, 0, 0);
+            border-color: hsl(6, 100%, 75%);
+            border-width: 2px;
+            width: 100px;
+            font-family: sans-serif;
+            font-weight: 900;
+              
+        }
+        #save_button:hover{
+            background-color: hsl(6, 100%, 90%); 
+        }
+        #select_option{
+            font-family: sans-serif;
+            font-weight: 900;
+            color: rgb(0, 0, 0);
+            background-color: rgb(255, 175, 166);
+            border-width: 1px;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.572);
+        }
+
+        #saved_text {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Optional: Adjust column size */
+            justify-content: center; /* Optional: Center align the items */
+            gap: 50px;
+        }
+
+        .subject_block {
+            margin-bottom: 20px; /* Add space between subject blocks */
+            
+            height: 400px;
+            border: solid;
+            border-radius: 20px;
+            border-width: 2px;
+            border-color: rgb(255, 255, 255);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /*background-color: rgb(2, 75, 20);*/
+            background-image: url(https://images.designtrends.com/wp-content/uploads/2015/12/22100209/Green-Chalkboard-Texture.jpg);
+            background-size: cover; /* Adjusts the size of the background image to cover the entire element */
+            background-position: center; /* Centers the background image within the element */
+            background-repeat: no-repeat;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.572);
+            color: aliceblue;
+
+            
+            
+        }
+
+        .subject_name {
+            font-family: Comic Sans MS, Comic Sans, cursive;
+            font-size: 1.8em;
+        }
+
+        .homework_text {
+            font-family: Comic Sans MS, Comic Sans, cursive;
+            font-size: 1.2em;
+            max-width: 90%; /* Ensures text doesn't overflow its container */
+            word-wrap: break-word; /* Allows long words to break and wrap onto the next line */
+        }
+
+
+
+
+    </style>
 </head>
 <body>
     <div id="editor"></div>
     <form action="{{ url_for('save_text') }}" method="post">
-        <select name = "subject">
+        <select name = "subject" id="select">
             {% for id, name in s_list %}
-                <option value="{{id}}">{{name}}</option>
+                <option value="{{id}}" id="select_option">{{name}}</option>
             {% endfor %}
         </select>
         <input type="hidden" name="text" id="text">
-        <button type="submit">Save</button>
+        <button type="submit" id="save_button">Save</button>
     </form>
-    <div id="saved-text">
+    <div id="saved_text">
         {% for subject, task in t_list %}
-            <h2>{{subject}}</h2>
-            <div>{{ task }}</div>
+            <div class="subject_block">
+                <h2 class="subject_name">{{subject}}</h2>
+                <div class="homework_text">{{ task }}</div>
+            </div>
         {% endfor %}
     </div>
 
